@@ -2,7 +2,7 @@
 
 // main controller class
 
-class controller {
+class controller{
 
     public function view($view, $data = array()){
 
@@ -13,5 +13,15 @@ class controller {
         }else {
             require "../private/views/404.view.php";
         }
+    }
+
+    public function load_model($model){
+
+        if(file_exists("../private/models/" . ucfirst($model) . ".php")){
+            require "../private/models/" . ucfirst($model) . ".php";
+            return $model = new $model();
+        }
+
+        return false;
     }
 }

@@ -4,8 +4,7 @@ class database{
     public function connect(){
         try{
             $con = new PDO(DBTYPE.':host='.HOST.';dbname='.DBNAME,USER,PASS);
-            //$con = new PDO("mysql:host=localhost;dbname=test",'root','');
-            echo 'connection success!';
+            //echo 'connection success!';
         }
         catch (PDOException $e){
             die('Error!: '. $e->getMessage());
@@ -14,22 +13,66 @@ class database{
         return $con;
     }
 
-    public function selectAll(){
-        $stmt = $this->connect()->prepare('Select * from test');
-        $stmt->execute();
+    public function query($query, $data = array()){
+        $stmt = $this->connect()->prepare($query);
+        $stmt->execute($data);
 
-        $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $data = $stmt->fetchAll(PDO::FETCH_OBJ);
 
-        return $res;
+        return $data;
+
+        /*if($stmt){
+            $check = $stmt->execute($data);
+            if($check){
+                $data = $stmt->fetchAll(PDO::FETCH_OBJ);
+            }
+        }
+
+        if(is_array($data) && count($data) > 0){
+            return $data;
+        }
+
+        return false;*/
     }
 
-    public function insert($data = array()){
-        $stmt = $this->connect()->prepare('Insert into test(name) values(:name)');
+    /*public function selectAll(){
+        $query = "Select * from '$this->table'";
+
+        return $this->query($query);
+    }
+
+    public function selectSingle($table){
+        $stmt = $this->connect()->prepare("Select * from $table limit 1");
+        $stmt->execute();
+
+        $data = $stmt->fetch(PDO::FETCH_OBJ);
+
+        if(is_array($data) && count($data) > 0){
+            return $data;
+        }
+
+        return false;
+    }
+
+    /*public function where($table, $column, $condition){
+        $stmt = $this->connect()->prepare("SELECT * from '$table' where '$column'= :condition");
+        $stmt->execute(['condition' => $condition]);
+
+        if($stmt){
+            $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+            return $res;
+        }else{
+            return false;
+        }
+    }
+
+    /*public function insert($table, $data = array()){
+        $stmt = $this->connect()->prepare("INSERT INTO $table (name) VALUES (   )");
         $stmt->execute($data);
         
         if(!$stmt){
             return false;
         }
         return true;
-    }
+    }*/
 }
