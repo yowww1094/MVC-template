@@ -1,13 +1,20 @@
 <?php
 
-class home extends controller{
+class Home extends controller{
 
     //protected $table = 'test';
     public function index()
     {
-        $user = $this->load_model('test');
+        $user = new test();
 
-        $data = $user->where("name", "younes");
+        //$arr['name'] = 'update test';
+
+        //$user->insert($arr);
+        //$user->update(5, $arr);
+        //$user->delete($arr);
+
+
+        $data = $user->findALl();
 
         $this->view('home', 
         [

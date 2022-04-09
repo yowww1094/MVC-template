@@ -24,4 +24,9 @@ class controller{
 
         return false;
     }
+
+    public function redirect($link){
+
+        header("location:". ROOT . "/" . trim($link, "/")); 
+    }
 }

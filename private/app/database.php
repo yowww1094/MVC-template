@@ -15,13 +15,8 @@ class database{
 
     public function query($query, $data = array()){
         $stmt = $this->connect()->prepare($query);
-        $stmt->execute($data);
 
-        $data = $stmt->fetchAll(PDO::FETCH_OBJ);
-
-        return $data;
-
-        /*if($stmt){
+        if($stmt){
             $check = $stmt->execute($data);
             if($check){
                 $data = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -32,7 +27,7 @@ class database{
             return $data;
         }
 
-        return false;*/
+        return false;
     }
 
     /*public function selectAll(){

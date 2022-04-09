@@ -6,8 +6,13 @@
         </div>
 
         <?php
+
+            //echo $data[0]->name;
+
+
             echo '<pre>';
             print_r($data);
+
         ?>
 
 <?php $this->view('includes/footer'); ?>
